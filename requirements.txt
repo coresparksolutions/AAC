@@ -1,0 +1,197 @@
+# AAC — Ahrefs Authority Checker
+
+A fast, lightweight, and scalable tool for checking domain authority metrics from Ahrefs.
+
+AAC helps SEO professionals, agencies, and digital marketers quickly evaluate domains, monitor authority, and export clean results for outreach or reporting.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](#)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](#)
+
+## Overview
+
+AAC is designed to simplify domain authority checks for large-scale outreach and SEO research. It can process bulk domain lists, check authority metrics, and export the output in a clean CSV format.
+
+This project is built for:
+- SEO analysts
+- Link-building teams
+- Research professionals
+- Digital marketing agencies
+- Domain prospecting workflows
+
+## What the project does
+
+The repository contains a Python-based bulk authority checker that:
+- reads a list of domain targets from a file
+- splits work across configured shards
+- calls the Ahrefs Domain Rating API
+- stores results in CSV files
+- avoids reprocessing already-completed entries
+- supports a simple interactive dashboard for day-to-day usage
+
+## Key features
+
+- Bulk domain checking from a text file
+- Parallel processing with shard-based execution
+- Ahrefs domain rating lookup
+- CSV export for analysis and reporting
+- Rate-limit handling for API stability
+- Lightweight setup with a desktop-style dashboard workflow
+- Easy integration into SEO and outreach research pipelines
+
+## Project structure
+
+```bash
+AAC/
+├── app.py
+├── check_dr_parallel.py
+├── links.txt
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── results/
+│   └── shard_0.csv
+└── .streamlit/
+    └── config.toml
+```
+
+## Requirements
+
+- Python 3.10+
+- Ahrefs API access
+- Internet access for API requests
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/coresparksolutions/AAC.git
+cd AAC
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate   # Linux/macOS
+venv\Scripts\activate      # Windows
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Configuration
+
+Create a `.env` file or export your environment variables:
+
+```bash
+export AHREFS_API_KEYS="your_key_1,your_key_2"
+export SHARD_INDEX=0
+export SHARD_COUNT=1
+```
+
+You can also copy the example file:
+
+```bash
+cp .env.example .env
+```
+
+## CLI usage
+
+Add domains to `links.txt`:
+
+```txt
+example.com
+moz.com
+semrush.com
+```
+
+Run the script:
+
+```bash
+python check_dr_parallel.py
+```
+
+The script writes output to the `results` folder in a CSV file such as:
+
+```bash
+results/shard_0.csv
+```
+
+## Dashboard usage
+
+Launch the interactive dashboard:
+
+```bash
+streamlit run app.py
+```
+
+In the dashboard you can:
+- paste or upload a list of domains
+- enter one or more Ahrefs API keys
+- choose shard index/count
+- run the lookup process
+- review results in a table
+- download the final CSV export
+
+## Output format
+
+CSV output includes:
+
+```csv
+target,domain_rating,error
+example.com,63,
+moz.com,82,
+semrush.com,74,
+```
+
+## How it works
+
+- Reads the input list of targets
+- Assigns work to a shard
+- Sends requests to the Ahrefs API
+- Saves results incrementally
+- Skips already-processed domains automatically
+
+## Rate limiting
+
+The script includes a small delay between requests to reduce the risk of API throttling and improve stability during large collections.
+
+## Best practices
+
+- Keep API keys in environment variables or your local `.env` file
+- Avoid overloading the API with excessive concurrent requests
+- Use a separate output folder for each project or campaign
+- Validate input domains before large bulk runs
+
+## Roadmap
+
+Planned improvements:
+- richer dashboard filters and charts
+- progress bars for large jobs
+- CSV and Excel export refinements
+- improved error reporting and retries
+- domain scoring summaries and ranking insights
+
+## Contributing
+
+Contributions are welcome. If you’d like to improve the project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For questions or collaboration:
+- GitHub: https://github.com/coresparksolutions
